@@ -1,0 +1,7 @@
+{
+  "name": "itjk-md",
+  "private": true,
+  "scripts": {
+    "build": "bash scripts/build.sh"
+  }
+}
