@@ -11,7 +11,7 @@ cd "$SOURCE_DIR"
 
 export npm_config_registry=https://registry.npmjs.org
 npx --yes pnpm@10.17.1 install --no-frozen-lockfile
-npx --yes pnpm@10.17.1 web build
+CF_PAGES=1 npx --yes pnpm@10.17.1 web build
 
 mkdir -p "$OUTPUT_DIR"
 cp -R apps/web/dist/. "$OUTPUT_DIR/"
