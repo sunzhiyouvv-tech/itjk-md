@@ -346,4 +346,13 @@ updateFile('apps/web/src/components/editor/editor-header/FundDialog.vue', () => 
 `)
 
 
+updateFile('apps/web/src/App.vue', (source) =>
+  replaceRequired(
+    source,
+    '  <AppSplash />\n',
+    '',
+    'duplicate app splash',
+  ),
+)
+
 console.log('Applied ITJK branding, content, header, and About dialog customizations.')
