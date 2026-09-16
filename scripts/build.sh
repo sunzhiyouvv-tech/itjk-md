@@ -10,7 +10,7 @@ git clone --depth 1 --branch v2.1.0 --single-branch https://github.com/doocs/md.
 cd "$SOURCE_DIR"
 
 corepack enable
-corepack prepare pnpm@9.15.9 --activate
+corepack prepare pnpm@10.17.1 --activate
 export npm_config_registry=https://registry.npmjs.org
 pnpm install --no-frozen-lockfile
 pnpm web build
