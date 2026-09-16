@@ -1,20 +1,22 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+set -Eeuo pipefail
 
-ROOT=/tmp/doocs-md
-rm -rf $ROOT
+SOURCE_DIR=/tmp/doocs-md
+OUTPUT_DIR="$OLDPWD/dist"
 
-git clone --depth 1 https://github.com/doocs/md.git $ROOT
-cd $ROOT
+rm -rf "$SOURCE_DIR" "$OUTPUT_DIR"
+git clone --depth 1 https://github.com/doocs/md.git "$SOURCE_DIR"
+cd "$SOURCE_DIR"
 
-# ITJK branding
-find . -type f \( -name '*.js' -o -name '*.ts' -o -name '*.vue' -o -name '*.json' -o -name '*.html' -o -name '*.css' \) -print0 | xargs -0 sed -i \
-  -e 's/doocs/ITJK/g' \
-  -e 's/Doocs/ITJK/g' \
-  -e 's/DOOCS/ITJK/g' \
-  -e 's/微信 Markdown 编辑器/IT极客 Markdown 编辑器/g'
+corepack enable
+corepack prepare pnpm@11.27.0 --activate
+pnpm install --frozen-lockfile
+pnpm web build
 
-npm install
-npm run build
+mkdir -p "$OUTPUT_DIR"
+cp -R apps/web/dist/. "$OUTPUT_DIR/"
 
-cp -r dist $OLDPWD/dist
+# Replace only user-facing product text after the upstream build. Avoid touching
+# source package names such as @doocs/*, which would break the monorepo.
+find "$OUTPUT_DIR" -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' \) -print0 |
+  xargs -0 sed -i     -e 's/微信 Markdown 编辑器/IT极客 Markdown 编辑器/g'     -e 's/WeChat Markdown Editor/ITJK Markdown Editor/g'
