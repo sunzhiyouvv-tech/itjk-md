@@ -10,7 +10,7 @@ git clone --depth 1 https://github.com/doocs/md.git "$SOURCE_DIR"
 cd "$SOURCE_DIR"
 
 corepack enable
-corepack prepare pnpm@10.17.1 --activate
+corepack prepare pnpm@9.15.9 --activate
 pnpm config set registry https://registry.npmjs.org
 pnpm install --frozen-lockfile
 pnpm web build
