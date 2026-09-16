@@ -12,7 +12,7 @@ cd "$SOURCE_DIR"
 corepack enable
 corepack prepare pnpm@9.15.9 --activate
 pnpm config set registry https://registry.npmjs.org
-pnpm install --frozen-lockfile
+pnpm install --no-frozen-lockfile
 pnpm web build
 
 mkdir -p "$OUTPUT_DIR"
