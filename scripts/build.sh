@@ -8,6 +8,7 @@ OUTPUT_DIR="$PROJECT_DIR/dist"
 rm -rf "$SOURCE_DIR" "$OUTPUT_DIR"
 git clone --depth 1 --branch v2.1.0 --single-branch https://github.com/doocs/md.git "$SOURCE_DIR"
 cd "$SOURCE_DIR"
+node "$PROJECT_DIR/scripts/customize-upstream.mjs"
 
 export npm_config_registry=https://registry.npmjs.org
 npx --yes pnpm@10.17.1 install --no-frozen-lockfile
