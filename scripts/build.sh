@@ -2,7 +2,8 @@
 set -Eeuo pipefail
 
 SOURCE_DIR=/tmp/doocs-md
-OUTPUT_DIR="$OLDPWD/dist"
+PROJECT_DIR="$(pwd)"
+OUTPUT_DIR="$PROJECT_DIR/dist"
 
 rm -rf "$SOURCE_DIR" "$OUTPUT_DIR"
 git clone --depth 1 https://github.com/doocs/md.git "$SOURCE_DIR"
