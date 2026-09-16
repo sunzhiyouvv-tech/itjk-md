@@ -6,13 +6,13 @@ PROJECT_DIR="$(pwd)"
 OUTPUT_DIR="$PROJECT_DIR/dist"
 
 rm -rf "$SOURCE_DIR" "$OUTPUT_DIR"
-git clone --depth 1 https://github.com/doocs/md.git "$SOURCE_DIR"
+git clone --depth 1 --branch v2.1.0 --single-branch https://github.com/doocs/md.git "$SOURCE_DIR"
 cd "$SOURCE_DIR"
 
 corepack enable
 corepack prepare pnpm@9.15.9 --activate
-pnpm config set registry https://registry.npmjs.org
-pnpm install --no-frozen-lockfile
+export npm_config_registry=https://registry.npmjs.org
+pnpm install --frozen-lockfile
 pnpm web build
 
 mkdir -p "$OUTPUT_DIR"
