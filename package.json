@@ -1,6 +1,9 @@
 {
   "name": "itjk-md",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "build": "bash scripts/build.sh"
   }
