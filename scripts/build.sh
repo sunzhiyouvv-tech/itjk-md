@@ -11,7 +11,7 @@ cd "$SOURCE_DIR"
 
 corepack enable
 corepack prepare pnpm@11.27.0 --activate
-pnpm install --frozen-lockfile
+pnpm install --no-frozen-lockfile
 pnpm web build
 
 mkdir -p "$OUTPUT_DIR"
