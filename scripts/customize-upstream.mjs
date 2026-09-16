@@ -196,4 +196,154 @@ function handleOpenFund() {
   return source
 })
 
-console.log('Applied ITJK header and About dialog customizations.')
+updateFile('apps/web/index.html', (source) => {
+  source = replaceRequired(
+    source,
+    '<meta name="keywords" content="md,markdown,markdown-editor,wechat,official-account,yanglbme,doocs" />',
+    '<meta name="keywords" content="IT极客,itjk,markdown,markdown-editor,公众号编辑器,文档编辑器" />',
+    'page keywords',
+  )
+  source = replaceRequired(
+    source,
+    '<meta name="description" content="Wechat Markdown Editor | 一款高度简洁的微信 Markdown 编辑器" />',
+    '<meta name="description" content="IT极客 Markdown 编辑器 | 一款高度简洁的 Markdown 文档编辑器" />',
+    'page description',
+  )
+  source = replaceRequired(
+    source,
+    '<title>微信 Markdown 编辑器 | Doocs 开源社区</title>',
+    '<title>IT极客 Markdown 编辑器 | IT极客</title>',
+    'page title',
+  )
+  return source
+})
+
+updateFile('apps/web/src/assets/example/markdown.md', (source) => {
+  source = replaceRequired(
+    source,
+    '[访问 Doocs](https://github.com/doocs)',
+    '[访问 IT极客](https://itjk.com)',
+    'example site link',
+  )
+  source = replaceRequired(
+    source,
+    '![doocs](https://cdn-doocs.oss-cn-shenzhen.aliyuncs.com/gh/doocs/md/images/logo-2.png)',
+    '**IT极客文档编辑器**：专注于公众号文章、简历和技术文档的高效编辑。',
+    'example logo',
+  )
+  source = replaceRequired(
+    source,
+    'console.log(`Hello, Doocs!`)',
+    'console.log(`Hello, ITJK!`)',
+    'example code',
+  )
+  source = replaceRequired(
+    source,
+    [
+      '| 项目人员                                    | 邮箱                   | 微信号       |',
+      '| ------------------------------------------- | ---------------------- | ------------ |',
+      '| [yanglbme](https://github.com/yanglbme)     | contact@yanglibin.info | YLB0109      |',
+      '| [YangFong](https://github.com/YangFong)     | yangfong2022@gmail.com | yq2419731931 |',
+      '| [thinkasany](https://github.com/thinkasany) | thinkasany@gmail.com   | thinkasany   |',
+    ].join('\n'),
+    [
+      '| 使用场景 | 推荐内容 |',
+      '| -------- | -------- |',
+      '| 公众号文章 | 技术分享、产品介绍、行业资讯 |',
+      '| 简历 | 个人经历、项目经验、技能清单 |',
+      '| 技术文档 | 使用说明、知识笔记、项目文档 |',
+    ].join('\n'),
+    'example author table',
+  )
+  source = replaceRequired(
+    source,
+    [
+      '- [阿里又一个 20k+ stars 开源项目诞生，恭喜 fastjson！](https://mp.weixin.qq.com/s/RNKDCK2KoyeuMeEs6GUrow)',
+      '- [刷掉 90% 候选人的互联网大厂海量数据面试题（附题解 + 方法总结）](https://mp.weixin.qq.com/s/rjGqxUvrEqJNlo09GrT1Dw)',
+      '- [好用！期待已久的文本块功能究竟如何在 Java 13 中发挥作用？](https://mp.weixin.qq.com/s/kalGv5T8AZGxTnLHr2wDsA)',
+      '- [2019 GitHub 开源贡献排行榜新鲜出炉！微软谷歌领头，阿里跻身前 12！](https://mp.weixin.qq.com/s/_q812aGD1b9QvZ2WFI0Qgw)',
+    ].join('\n'),
+    [
+      '- [访问 IT极客主站](https://itjk.com)',
+      '- [使用 IT极客文档编辑器](https://md.itjk.com)',
+      '- 如需帮助，请联系 [mail@itjk.com](mailto:mail@itjk.com)',
+    ].join('\n'),
+    'example recommended reading',
+  )
+  source = replaceRequired(
+    source,
+    [
+      '---',
+      '',
+      '<center>',
+      '    <img src="https://cdn-doocs.oss-cn-shenzhen.aliyuncs.com/gh/doocs/md/images/1648303220922-7e14aefa-816e-44c1-8604-ade709ca1c69.png" style="width: 100px;">',
+      '</center>',
+    ].join('\n'),
+    [
+      '---',
+      '',
+      '由 IT极客文档编辑器提供。',
+    ].join('\n'),
+    'example footer',
+  )
+  return source
+})
+
+updateFile('apps/web/src/assets/example/theme-css.txt', (source) =>
+  replaceRequired(
+    source,
+    ' * 提交区：https://github.com/doocs/md/discussions/426',
+    ' * IT极客：https://itjk.com',
+    'theme attribution',
+  ),
+)
+
+updateFile('apps/web/src/components/editor/CustomUploadForm.vue', (source) =>
+  source.replaceAll('https://github.com/doocs/md/blob/main/docs/custom-upload.md', 'https://itjk.com'),
+)
+
+updateFile('apps/web/src/components/editor/InsertMpCardDialog.vue', (source) => {
+  source = source.replaceAll(
+    'https://cdn-doocs.oss-cn-shenzhen.aliyuncs.com/gh/doocs/md/images/mp-logo.png',
+    'https://md.itjk.com/favicon.ico',
+  )
+  source = source.replaceAll('例：Doocs', '例：IT极客')
+  source = source.replaceAll('例：https://doocs.com/mp-logo.png', '例：https://itjk.com/favicon.ico')
+  source = source.replaceAll(
+    '例：GitHub 开源组织 @Doocs 旗下唯一公众号，专注分享技术领域相关知识及行业最新资讯。',
+    '例：IT极客，专注分享技术知识、实用工具和行业资讯。',
+  )
+  source = source.replaceAll('https://github.com/doocs/md/blob/main/docs/mp-card.md', 'https://itjk.com')
+  return source
+})
+
+updateFile('apps/web/src/components/editor/UploadImgDialog.vue', (source) => {
+  source = source.replaceAll('yanglbme', 'itjk')
+  source = source.replaceAll('doocs', 'itjk')
+  source = source.replaceAll('DOOCS', 'ITJK')
+  source = source.replaceAll('https://md-pages.itjk.org/tutorial/', 'https://itjk.com')
+  source = source.replaceAll('https://github.com/itjk/md/blob/main/docs/telegram-usage.md', 'https://itjk.com')
+  return source
+})
+
+updateFile('apps/web/src/entrypoints/background.ts', (source) =>
+  source.replaceAll('https://md-pages.doocs.org/welcome', 'https://itjk.com'),
+)
+
+updateFile('apps/web/src/entrypoints/popup/App.vue', (source) =>
+  source.replaceAll('https://md-pages.doocs.org/tutorial', 'https://itjk.com'),
+)
+
+updateFile('apps/web/vite.config.ts', (source) => {
+  source = source.replaceAll('name: `@doocs-md`', 'name: `IT极客 Markdown 编辑器`')
+  source = source.replaceAll('short_name: `@doocs-md`', 'short_name: `ITJK MD`')
+  return source
+})
+
+updateFile('apps/web/src/components/editor/editor-header/FundDialog.vue', () => `<template>
+  <div />
+</template>
+`)
+
+
+console.log('Applied ITJK branding, content, header, and About dialog customizations.')
