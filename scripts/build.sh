@@ -9,11 +9,9 @@ rm -rf "$SOURCE_DIR" "$OUTPUT_DIR"
 git clone --depth 1 --branch v2.1.0 --single-branch https://github.com/doocs/md.git "$SOURCE_DIR"
 cd "$SOURCE_DIR"
 
-corepack enable
-corepack prepare pnpm@11.27.0 --activate
 export npm_config_registry=https://registry.npmjs.org
-pnpm install --no-frozen-lockfile
-pnpm web build
+npx --yes pnpm@10.17.1 install --no-frozen-lockfile
+npx --yes pnpm@10.17.1 web build
 
 mkdir -p "$OUTPUT_DIR"
 cp -R apps/web/dist/. "$OUTPUT_DIR/"
